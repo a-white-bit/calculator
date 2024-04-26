@@ -8,13 +8,16 @@ public class App {
         char operator;                                      // 사칙연산 문자 1개
         int resultMaxCount = 10;                            // 연산 저장 개수
         double[] result = new double[resultMaxCount];       // 연산 결과값 (최대 저장 개수 resultMaxCount개)
-        boolean error = false;                              // 연산에러 여부
+        boolean error;                                      // 연산에러 여부
         boolean exit = false;                               // 종료 여부
         byte index = 0;                                     // 연산 횟수 카운트
 
         // 사용자가 종료 요청 시 까지 반복 또는,
         // 최대 연산 횟수 초과 시 까지 반복
         while (!exit && index < resultMaxCount) {
+            // 초기화
+            error = false;
+
             // 두 정수를 입력받는 코드
             // 정수가 아닌 값(실수, 문자)을 받는 예외처리 코드 나중에 필요 (예외 발생)
             // *문제에서 양수를 입력하라고 명시하였지만, 음수를 입력해도 로직 문제가 없으므로 이대로 진행
@@ -59,7 +62,7 @@ public class App {
             // ...'네' 입력시 처음부터 반복
             // ...'아니오' 입력시 종료
             while (true) {
-                System.out.println("다시 계산하시겠습니까? (네/아니요)");
+                System.out.print("다시 계산하시겠습니까? (네/아니요) ");
                 String exitQuestion = sc.nextLine();
                 if (exitQuestion.equals("아니요")) {
                     exit = true;
@@ -67,7 +70,7 @@ public class App {
                 }
                 else if (exitQuestion.equals("네")) {
                     // 다음 연산 준비 index += 1
-                    index++;
+                    if (!error) index++;
                     break;
                 }
             }
