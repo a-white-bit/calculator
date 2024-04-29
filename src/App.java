@@ -33,7 +33,7 @@ public class App {
             try {
                 myCalc.calculate(num1, num2, operator);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("[계산 실패]: " + e.getMessage());
                 error = true;
             }
 
@@ -41,14 +41,21 @@ public class App {
             // 결과 출력
             // 나중에 예외처리 - 메세지 유연하게 하기
             if (!error) {
-                System.out.println(" 연산 결과: " + num1 + " " + operator + " " + num2 + " = " + myCalc.getLastResult());
+                System.out.println("[연산 결과]: " + num1 + " " + operator + " " + num2 + " = " + myCalc.getLastResult());
             }
 
 
             // 연산 리스트 삭제 질문
             // 리스트가 비어있지 않을 경우에 삭제 진행
-            //System.out.print("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제) ");
-            //if (sc.nextLine().equals("remove") && !result.isEmpty()) result.remove(0);
+            // 비어 있다면 Exception
+            System.out.print("[가장 먼저 저장된 연산 결과를 삭제하시겠습니까?] (remove 입력 시 삭제) ");
+            if (sc.nextLine().equals("remove")) {
+                try {
+                    myCalc.removeFirstResult();
+                } catch (Exception e) {
+                    System.out.println("[삭제 실패]: " + e.getMessage());
+                }
+            };
 
 
             // 조회 여부 질문
@@ -77,7 +84,7 @@ public class App {
     static void printCalcList(Calculator c) {
         // 리스트 전부 출력
         if (c.getNumberOfList() == 0)
-            System.out.println(" 연산 결과: (빈 리스트)");
+            System.out.println("[연산 결과]: (빈 리스트)");
         else {
             for (int i = 0; i < c.getNumberOfList(); i++) {
                 System.out.print(c.getListByIndex(i) + " ");
