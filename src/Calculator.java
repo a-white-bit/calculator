@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Calculator {
-    // 리스트 캡슐화 private
-    // 리스트 참조 변경 불가 final
+    // 리스트 캡슐화 (private)
+    // 리스트 참조 변경 불가 (final)
     private final ArrayList<Double> resultList;
 
     public Calculator() {
@@ -30,8 +30,9 @@ public class Calculator {
 
     // getter (1)
     // List 잘못된 인덱스 접근 예외 처리 필요함
-    public double getLastResult() {
-        return resultList.get(resultList.size() - 1);
+    public double getLastResult() throws IndexOutOfBoundsException {
+        if (resultList.isEmpty()) throw new IndexOutOfBoundsException("빈 리스트입니다.");
+        else return resultList.get(resultList.size() - 1);
     }
     // getter (2)
     // List 잘못된 인덱스 접근 예외 처리 필요함

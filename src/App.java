@@ -7,14 +7,10 @@ public class App {
         Calculator myCalc = new Calculator();               // 계산기 객체 생성
         int num1, num2;                                     // 정수 2개
         char operator;                                      // 사칙연산 문자 1개
-        boolean error;                                      // 연산에러 여부
         boolean exit = false;                               // 종료 여부
 
         // 사용자가 종료 요청 시 까지 반복
         while (!exit) {
-            // 초기화
-            error = false;
-
 
             // 두 정수를 입력받는 코드
             // 정수가 아닌 값(실수, 문자)을 받는 예외처리 코드 나중에 필요 (예외 발생)
@@ -29,19 +25,20 @@ public class App {
             operator = sc.nextLine().charAt(0);
 
 
-            // 계산 시도
+            // 계산
             try {
                 myCalc.calculate(num1, num2, operator);
             } catch (Exception e) {
                 System.out.println("[계산 실패]: " + e.getMessage());
-                error = true;
             }
 
 
             // 결과 출력
-            // 나중에 예외처리 - 메세지 유연하게 하기
-            if (!error) {
-                System.out.println("[연산 결과]: " + num1 + " " + operator + " " + num2 + " = " + myCalc.getLastResult());
+            try {
+                System.out.println("[연산 결과]: " + num1 + " " +
+                        operator + " " + num2 + " = " + myCalc.getLastResult());
+            } catch (Exception e) {
+                System.out.println("[출력 실패]: " + e.getMessage());
             }
 
 
