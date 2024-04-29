@@ -52,15 +52,17 @@ public class App {
                 System.out.println("--" + (resultCount) + ") " +
                         "연산 결과: ( " + num1 + " " + operator + " " + num2 + " ) = " +
                         result.get(result.size() - 1));
-                        printAllOfList(result);
             }
 
             // 연산 리스트 삭제 질문
+            // 리스트가 비어있지 않을 경우에 삭제 진행
             System.out.print("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제) ");
-            if (sc.nextLine().equals("remove")) {
-                if (!result.isEmpty()) result.remove(0);
-                printAllOfList(result);
-            };
+            if (sc.nextLine().equals("remove") && !result.isEmpty()) result.remove(0);
+
+
+            // 조회 여부 질문
+            System.out.print("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회) ");
+            if (sc.nextLine().equals("inquiry")) printAllOfList(result);
 
 
             // 종료 여부 질문
@@ -88,10 +90,10 @@ public class App {
         // 리스트 전부 출력
         System.out.print("-");
         if (myList.isEmpty()) System.out.println("(빈 리스트) 연산 결과가 없습니다.");
-        else {
-            for (int i = 0; i < myList.size(); i++)
-                System.out.print("[" + i + "] " + myList.get(i) + " ");
-            System.out.println();
-        }
+        else System.out.println(myList);
+
+        // forEach()
+        //for(T i : myList) System.out.print(i + " ");
+        //System.out.println();
     }
 }
