@@ -5,6 +5,7 @@ public class App {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);                // 입력받을 객체(Scanner) 선언
+        Calculator myCalc = new Calculator();               // 계산기 객체 생성
         int num1, num2;                                     // 정수 2개
         char operator;                                      // 사칙연산 문자 1개
         double result = 0;                                  // 연산 결과
@@ -16,22 +17,21 @@ public class App {
             // 초기화
             error = false;
 
+
             // 두 정수를 입력받는 코드
             // 정수가 아닌 값(실수, 문자)을 받는 예외처리 코드 나중에 필요 (예외 발생)
-            // *문제에서 양수를 입력하라고 명시하였지만, 음수를 입력해도 로직 문제가 없으므로 이대로 진행
-            System.out.print("첫 번째 숫자를 입력하세요: ");
+            System.out.print("[첫 번째 숫자를 입력하세요]: ");
             num1 = Integer.parseInt(sc.nextLine());
-            System.out.print("두 번째 숫자를 입력하세요: ");
+            System.out.print("[두 번째 숫자를 입력하세요]: ");
             num2 = Integer.parseInt(sc.nextLine());
 
             // 연산기호(+ - * /) 입력받는 코드
             // charAt(0)으로 첫 번째 문자만 저장됨
-            System.out.print("사칙연산 기호를 입력하세요: ");
+            System.out.print("[사칙연산 기호를 입력하세요]: ");
             operator = sc.nextLine().charAt(0);
 
-            // 계산기 객체 생성
+
             // 계산 시도
-            Calculator myCalc = new Calculator();
             try {
                 result = myCalc.calculate(num1, num2, operator);
             } catch (Exception e) {
@@ -39,11 +39,13 @@ public class App {
                 error = true;
             }
 
+
             // 결과 출력
             // 나중에 예외처리 - 메세지 유연하게 하기
             if (!error) {
-                System.out.println("*연산 결과: ( " + num1 + " " + operator + " " + num2 + " ) = " + result);
+                System.out.println(" 연산 결과: " + num1 + " " + operator + " " + num2 + " = " + result);
             }
+
 
             // 연산 리스트 삭제 질문
             // 리스트가 비어있지 않을 경우에 삭제 진행
@@ -52,38 +54,33 @@ public class App {
 
 
             // 조회 여부 질문
-            System.out.print("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회) ");
-            if (sc.nextLine().equals("inquiry")) printAllOfList(myCalc.result);
+            System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
+            if (sc.nextLine().equals("inquiry")) printAllOfList(myCalc.resultList);
 
 
             // 종료 여부 질문
             // '네' 또는 '아니요'가 아닐 시 다시 질문
             while (true) {
-                System.out.print("다시 계산하시겠습니까? (네/아니요) ");
+                System.out.print("[다시 계산하시겠습니까?] (네/아니요) ");
                 String exitQuestion = sc.nextLine();
                 if (exitQuestion.equals("아니요")) {
                     exit = true;
                     break;
                 } else if (exitQuestion.equals("네")) {
-                    // 다음 연산 준비
-                    if (error) break;
-                    System.out.println();
                     break;
                 }
             }
         }
-        System.out.println("연산 종료");
+        System.out.println("[연산 종료]");
         sc.close();
     }
 
     static <T> void printAllOfList(ArrayList<T> myList) {
         // 리스트 전부 출력
-        System.out.print("-");
         if (myList.isEmpty()) System.out.println("(빈 리스트) 연산 결과가 없습니다.");
-        else System.out.println(myList);
-
-        // forEach()
-        //for(T i : myList) System.out.print(i + " ");
-        //System.out.println();
+        else {
+            myList.forEach(data -> System.out.print(data + " "));
+        }
+        System.out.println();
     }
 }
