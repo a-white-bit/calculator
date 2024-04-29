@@ -1,15 +1,14 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);                // 입력받을 객체(Scanner) 선언
-        long num1, num2;                                    // 정수 타입 중 가장 큰 수 표현이 가능한 long을 채택
+        double num1, num2;                                  // 가장 큰 수 표현이 가능한 double을 채택
         char operator;                                      // 사칙연산 문자 1개
-        byte resultMaxCount = 10;                           // 연산 저장 개수
-        byte index = 0;                                     // 연산 배열 인덱스
         int resultCount = 1;                                // 연산 횟수 카운트
-        double[] result = new double[resultMaxCount];       // 연산 결과값 (최대 저장 개수 resultMaxCount개)
+        ArrayList<Double> result = new ArrayList<>();       // 연산 결과 리스트
         boolean error;                                      // 연산에러 여부
         boolean exit = false;                               // 종료 여부
 
@@ -35,28 +34,34 @@ public class App {
             // 연산하기
             // 사칙연산이 아닌 값이 들어올 때 예외처리 필요 (언제? 어디서?)
             switch (operator) {
-                case '+' -> result[index] = num1 + num2;
-                case '-' -> result[index] = num1 - num2;
-                case '*' -> result[index] = num1 * num2;
+                case '+' -> result.add(num1 + num2);
+                case '-' -> result.add(num1 - num2);
+                case '*' -> result.add(num1 * num2);
                 case '/' -> {
                     if (num2 == 0) error = true;
-                    else result[index] = (double) num1 / (double) num2;  // 강제 형변환 필요
+                    else result.add(num1 / num2);
                 }
             }
+
 
             // 결과 출력
             // 나중에 예외처리 - 메세지 유연하게 하기
             if (error) {
                 System.out.println("나눗셈 연산에서 두번째 정수가 0이 될 수 없습니다.");
             } else {
-                System.out.println("--( " + num1 + " " + operator + " " + num2 + " )");
-                System.out.println("--" + (resultCount) + ") 연산 결과: " + result[index]);
-                // 배열 전부 출력
-                System.out.print("-");
-                for (int i = 0; i <= index; i++)
-                    System.out.print("[" + i + "] " + result[i] + " ");
-                System.out.println();
+                System.out.println("--" + (resultCount) + ") " +
+                        "연산 결과: ( " + num1 + " " + operator + " " + num2 + " ) = " +
+                        result.get(result.size() - 1));
+                        printAllOfList(result);
             }
+
+            // 연산 리스트 삭제 질문
+            System.out.print("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제) ");
+            if (sc.nextLine().equals("remove")) {
+                if (!result.isEmpty()) result.remove(0);
+                printAllOfList(result);
+            };
+
 
             // 종료 여부 질문
             // '네' 또는 '아니요'가 아닐 시 다시 질문
@@ -69,21 +74,24 @@ public class App {
                 } else if (exitQuestion.equals("네")) {
                     // 다음 연산 준비
                     if (error) break;
-
-                    // 정상적으로 계산이 완료된 경우 이곳 실행
-                    // 연산 배열이 꽉 찼을 때 else 실행
-                    if (index < result.length - 1) index++;
-                    else {
-                        // 가장 먼저 저장된 결과 삭제
-                        for (int i = 0; i < result.length - 1; i++)
-                            result[i] = result[i + 1];
-                    }
                     resultCount++;
+                    System.out.println();
                     break;
                 }
             }
         }
         System.out.println("연산 종료");
         sc.close();
+    }
+
+    static <T> void printAllOfList(ArrayList<T> myList) {
+        // 리스트 전부 출력
+        System.out.print("-");
+        if (myList.isEmpty()) System.out.println("(빈 리스트) 연산 결과가 없습니다.");
+        else {
+            for (int i = 0; i < myList.size(); i++)
+                System.out.print("[" + i + "] " + myList.get(i) + " ");
+            System.out.println();
+        }
     }
 }
