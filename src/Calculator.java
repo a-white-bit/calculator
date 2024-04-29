@@ -43,6 +43,16 @@ public class Calculator {
         return resultList.size();
     }
 
+    // getter (4) - 리스트 전부 출력
+    public void inquiryResults() {
+        if (resultList.isEmpty())
+            System.out.print("[연산 결과]: (빈 리스트)");
+        else
+            resultList.forEach(result -> System.out.print(result + " "));
+        System.out.println();
+    }
+
+
     // setter (1) - 리스트 가장 오래된 요소 삭제 + get
     // 잘못된 인덱스 접근 예외 처리 필요
     public void removeFirstResult() throws Exception {

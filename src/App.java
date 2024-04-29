@@ -55,23 +55,25 @@ public class App {
                 } catch (Exception e) {
                     System.out.println("[삭제 실패]: " + e.getMessage());
                 }
-            };
+            }
 
 
             // 조회 여부 질문
             System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
-            if (sc.nextLine().equals("inquiry")) printCalcList(myCalc);
+            if (sc.nextLine().equals("inquiry")) {
+                myCalc.inquiryResults();
+            }
 
 
             // 종료 여부 질문
             // '네' 또는 '아니요'가 아닐 시 다시 질문
             while (true) {
-                System.out.print("[다시 계산하시겠습니까?] (네/아니요) ");
+                System.out.print("[다시 계산하시겠습니까?] (y/n) ");
                 String exitQuestion = sc.nextLine();
-                if (exitQuestion.equals("아니요")) {
+                if (exitQuestion.equals("n")) {
                     exit = true;
                     break;
-                } else if (exitQuestion.equals("네")) {
+                } else if (exitQuestion.equals("y")) {
                     System.out.println();
                     break;
                 }
@@ -79,17 +81,5 @@ public class App {
         }
         System.out.println("[연산 종료]");
         sc.close();
-    }
-
-    static void printCalcList(Calculator c) {
-        // 리스트 전부 출력
-        if (c.getNumberOfList() == 0)
-            System.out.println("[연산 결과]: (빈 리스트)");
-        else {
-            for (int i = 0; i < c.getNumberOfList(); i++) {
-                System.out.print(c.getListByIndex(i) + " ");
-            }
-        }
-        System.out.println();
     }
 }
