@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -8,7 +7,6 @@ public class App {
         Calculator myCalc = new Calculator();               // 계산기 객체 생성
         int num1, num2;                                     // 정수 2개
         char operator;                                      // 사칙연산 문자 1개
-        double result = 0;                                  // 연산 결과
         boolean error;                                      // 연산에러 여부
         boolean exit = false;                               // 종료 여부
 
@@ -33,7 +31,7 @@ public class App {
 
             // 계산 시도
             try {
-                result = myCalc.calculate(num1, num2, operator);
+                myCalc.calculate(num1, num2, operator);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 error = true;
@@ -43,7 +41,7 @@ public class App {
             // 결과 출력
             // 나중에 예외처리 - 메세지 유연하게 하기
             if (!error) {
-                System.out.println(" 연산 결과: " + num1 + " " + operator + " " + num2 + " = " + result);
+                System.out.println(" 연산 결과: " + num1 + " " + operator + " " + num2 + " = " + myCalc.getLastResult());
             }
 
 
@@ -55,7 +53,7 @@ public class App {
 
             // 조회 여부 질문
             System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
-            if (sc.nextLine().equals("inquiry")) printAllOfList(myCalc.resultList);
+            if (sc.nextLine().equals("inquiry")) printCalcList(myCalc);
 
 
             // 종료 여부 질문
@@ -67,6 +65,7 @@ public class App {
                     exit = true;
                     break;
                 } else if (exitQuestion.equals("네")) {
+                    System.out.println();
                     break;
                 }
             }
@@ -75,11 +74,14 @@ public class App {
         sc.close();
     }
 
-    static <T> void printAllOfList(ArrayList<T> myList) {
+    static void printCalcList(Calculator c) {
         // 리스트 전부 출력
-        if (myList.isEmpty()) System.out.println("(빈 리스트) 연산 결과가 없습니다.");
+        if (c.getNumberOfList() == 0)
+            System.out.println(" 연산 결과: (빈 리스트)");
         else {
-            myList.forEach(data -> System.out.print(data + " "));
+            for (int i = 0; i < c.getNumberOfList(); i++) {
+                System.out.print(c.getListByIndex(i) + " ");
+            }
         }
         System.out.println();
     }
