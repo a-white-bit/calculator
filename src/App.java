@@ -57,11 +57,11 @@ public class App {
                             case "-" -> aCalc.setOperator(new SubtractOperator());
                             case "*" -> aCalc.setOperator(new MultiplyOperator());
                             case "/" -> aCalc.setOperator(new DivideOperator());
+                            case "%" -> aCalc.setOperator(new ModOperator());
                             default -> { System.out.println("[에러]: 잘못된 연산기호입니다."); continue; }
                         }
                         break;
                     }
-
 
                     // 계산
                     try {
