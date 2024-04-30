@@ -2,18 +2,20 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
+        // 사칙연산, 원의 넓이 각각 인스턴스 생성
+        // 합칠 수 없을까?
+        ArithmeticCalculator aCalc = new ArithmeticCalculator();
+        CircleCalculator cCalc = new CircleCalculator();
 
-        Scanner sc = new Scanner(System.in);                // 입력받을 객체(Scanner) 선언
-        Calculator myCalc = new Calculator();               // 계산기 객체 생성
-        String scInput;                                     // Scanner로 받은 문자열
-        int num1, num2;                                     // 정수 2개
-        double radius;                                      // 실수 1개
-        char operator;                                      // 사칙연산 문자 1개
-        boolean exit = false;                               // 종료 여부
+        Scanner sc = new Scanner(System.in);
+        String scInput; // Scanner로 받은 문자열
+        int num1, num2;
+        double radius;
+        char operator;
+        boolean exit = false;
 
         // 사용자가 종료 요청 시 까지 반복
         while (!exit) {
-
             // 사칙연산
             // or 원의 넓이를 구할지 선택
             do {
@@ -38,12 +40,12 @@ public class App {
 
                     // 계산
                     try {
-                        myCalc.calculate(num1, num2, operator);
+                        aCalc.calculate(num1, num2, operator);
 
                         // 결과 출력
                         try {
                             System.out.println("[연산 결과]: " + num1 + " " +
-                                    operator + " " + num2 + " = " + myCalc.getLastResult());
+                                    operator + " " + num2 + " = " + aCalc.getLastResult());
                         } catch (Exception e) {
                             System.out.println("[출력 실패]: " + e.getMessage());
                         }
@@ -53,7 +55,7 @@ public class App {
                         System.out.print("[가장 먼저 저장된 연산 결과를 삭제하시겠습니까?] (remove 입력 시 삭제) ");
                         if (sc.nextLine().equals("remove")) {
                             try {
-                                myCalc.removeFirstResult();
+                                aCalc.removeFirstResult();
                             } catch (Exception e) {
                                 System.out.println("[삭제 실패]: " + e.getMessage());
                             }
@@ -63,7 +65,7 @@ public class App {
                         System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
                         if (sc.nextLine().equals("inquiry")) {
                             System.out.print("[연산 리스트]: ");
-                            myCalc.inquiryResults();
+                            aCalc.inquiryResults();
                         }
 
                     } catch (Exception e) {
@@ -78,11 +80,11 @@ public class App {
                     radius = Double.parseDouble(sc.nextLine());
 
                     // 계산 + 저장
-                    myCalc.calculateCircleArea(radius);
+                    cCalc.calculate(radius);
 
                     // 출력
                     try {
-                        System.out.println("[원의 넓이]: " + myCalc.getLastCircleArea() + " (r = " + radius + ")");
+                        System.out.println("[원의 넓이]: " + cCalc.getLastResult() + " (r = " + radius + ")");
                     } catch (Exception e) {
                         System.out.println("[출력 실패]: " + e.getMessage());
                     }
@@ -91,7 +93,7 @@ public class App {
                     System.out.print("[가장 먼저 저장된 연산 결과를 삭제하시겠습니까?] (remove 입력 시 삭제) ");
                     if (sc.nextLine().equals("remove")) {
                         try {
-                            myCalc.removeFirstCircleArea();
+                            cCalc.removeFirstResult();
                         } catch (Exception e) {
                             System.out.println("[삭제 실패]: " + e.getMessage());
                         }
@@ -100,7 +102,7 @@ public class App {
                     // 조회 여부
                     System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
                     if (sc.nextLine().equals("inquiry")) {
-                        myCalc.inquiryCircleArea();
+                        cCalc.inquiryResults();
                     }
                     break;
             }
