@@ -5,60 +5,104 @@ public class App {
 
         Scanner sc = new Scanner(System.in);                // 입력받을 객체(Scanner) 선언
         Calculator myCalc = new Calculator();               // 계산기 객체 생성
+        String scInput;                                     // Scanner로 받은 문자열
         int num1, num2;                                     // 정수 2개
+        double radius;                                      // 실수 1개
         char operator;                                      // 사칙연산 문자 1개
         boolean exit = false;                               // 종료 여부
 
         // 사용자가 종료 요청 시 까지 반복
         while (!exit) {
 
-            // 두 정수를 입력받는 코드
-            // 정수가 아닌 값(실수, 문자)을 받는 예외처리 코드 나중에 필요 (예외 발생)
-            System.out.print("[첫 번째 숫자를 입력하세요]: ");
-            num1 = Integer.parseInt(sc.nextLine());
-            System.out.print("[두 번째 숫자를 입력하세요]: ");
-            num2 = Integer.parseInt(sc.nextLine());
-
-            // 연산기호(+ - * /) 입력받는 코드
-            // charAt(0)으로 첫 번째 문자만 저장됨
-            System.out.print("[사칙연산 기호를 입력하세요]: ");
-            operator = sc.nextLine().charAt(0);
+            // 사칙연산
+            // or 원의 넓이를 구할지 선택
+            do {
+                System.out.print("[계산 방식을 선택하세요] (1:사칙연산, 2:원의 넓이): ");
+                scInput = sc.nextLine();
+            } while (!scInput.equals("1") && !scInput.equals("2"));
 
 
-            // 계산
-            try {
-                myCalc.calculate(num1, num2, operator);
-            } catch (Exception e) {
-                System.out.println("[계산 실패]: " + e.getMessage());
-            }
+            switch (scInput) {
+                case "1":  // 사칙연산 실행부
+                    // 두 정수를 입력받는 코드
+                    // 정수가 아닌 값(실수, 문자)을 받는 예외처리 코드 나중에 필요 (예외 발생)
+                    System.out.print("[첫 번째 숫자를 입력하세요]: ");
+                    num1 = Integer.parseInt(sc.nextLine());
+                    System.out.print("[두 번째 숫자를 입력하세요]: ");
+                    num2 = Integer.parseInt(sc.nextLine());
 
+                    // 연산기호(+ - * /) 입력받는 코드
+                    // charAt(0)으로 첫 번째 문자만 저장됨
+                    System.out.print("[사칙연산 기호를 입력하세요]: ");
+                    operator = sc.nextLine().charAt(0);
 
-            // 결과 출력
-            try {
-                System.out.println("[연산 결과]: " + num1 + " " +
-                        operator + " " + num2 + " = " + myCalc.getLastResult());
-            } catch (Exception e) {
-                System.out.println("[출력 실패]: " + e.getMessage());
-            }
+                    // 계산
+                    try {
+                        myCalc.calculate(num1, num2, operator);
 
+                        // 결과 출력
+                        try {
+                            System.out.println("[연산 결과]: " + num1 + " " +
+                                    operator + " " + num2 + " = " + myCalc.getLastResult());
+                        } catch (Exception e) {
+                            System.out.println("[출력 실패]: " + e.getMessage());
+                        }
 
-            // 연산 리스트 삭제 질문
-            // 리스트가 비어있지 않을 경우에 삭제 진행
-            // 비어 있다면 Exception
-            System.out.print("[가장 먼저 저장된 연산 결과를 삭제하시겠습니까?] (remove 입력 시 삭제) ");
-            if (sc.nextLine().equals("remove")) {
-                try {
-                    myCalc.removeFirstResult();
-                } catch (Exception e) {
-                    System.out.println("[삭제 실패]: " + e.getMessage());
-                }
-            }
+                        // 연산 리스트 삭제 질문
+                        // 리스트가 비어있지 않을 경우에 삭제 진행
+                        System.out.print("[가장 먼저 저장된 연산 결과를 삭제하시겠습니까?] (remove 입력 시 삭제) ");
+                        if (sc.nextLine().equals("remove")) {
+                            try {
+                                myCalc.removeFirstResult();
+                            } catch (Exception e) {
+                                System.out.println("[삭제 실패]: " + e.getMessage());
+                            }
+                        }
 
+                        // 조회 여부 질문
+                        System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
+                        if (sc.nextLine().equals("inquiry")) {
+                            System.out.print("[연산 리스트]: ");
+                            myCalc.inquiryResults();
+                        }
 
-            // 조회 여부 질문
-            System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
-            if (sc.nextLine().equals("inquiry")) {
-                myCalc.inquiryResults();
+                    } catch (Exception e) {
+                        System.out.println("[계산 실패]: " + e.getMessage());
+                    }
+                    break;
+
+                case "2":  // 원의 넓이 실행부
+                    // 값 입력
+                    // 실수가 아닌 값을 받는 예외처리 코드 나중에 필요 (예외 발생)
+                    System.out.print("[원의 반지름을 입력하세요]: ");
+                    radius = Double.parseDouble(sc.nextLine());
+
+                    // 계산 + 저장
+                    myCalc.calculateCircleArea(radius);
+
+                    // 출력
+                    try {
+                        System.out.println("[원의 넓이]: " + myCalc.getLastCircleArea() + " (r = " + radius + ")");
+                    } catch (Exception e) {
+                        System.out.println("[출력 실패]: " + e.getMessage());
+                    }
+
+                    // 삭제 여부
+                    System.out.print("[가장 먼저 저장된 연산 결과를 삭제하시겠습니까?] (remove 입력 시 삭제) ");
+                    if (sc.nextLine().equals("remove")) {
+                        try {
+                            myCalc.removeFirstCircleArea();
+                        } catch (Exception e) {
+                            System.out.println("[삭제 실패]: " + e.getMessage());
+                        }
+                    }
+
+                    // 조회 여부
+                    System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
+                    if (sc.nextLine().equals("inquiry")) {
+                        myCalc.inquiryCircleArea();
+                    }
+                    break;
             }
 
 
@@ -66,11 +110,11 @@ public class App {
             // '네' 또는 '아니요'가 아닐 시 다시 질문
             while (true) {
                 System.out.print("[다시 계산하시겠습니까?] (y/n) ");
-                String exitQuestion = sc.nextLine();
-                if (exitQuestion.equals("n")) {
+                scInput = sc.nextLine();
+                if (scInput.equals("n")) {
                     exit = true;
                     break;
-                } else if (exitQuestion.equals("y")) {
+                } else if (scInput.equals("y")) {
                     System.out.println();
                     break;
                 }
