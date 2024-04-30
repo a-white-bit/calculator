@@ -10,7 +10,6 @@ public class App {
 
         Scanner sc = new Scanner(System.in);
         String scInput;                         // Scanner로 받을 문자열
-        double radius;
         boolean exit = false;
 
         // 사용자가 종료 요청 시 까지 반복
@@ -49,18 +48,16 @@ public class App {
 
                     // 연산기호(+ - * /) 입력받는 코드
                     // 잘못된 연산기호면 반복
+                    // OperatorType: enum { ADD, SUBTRACT, MULTIPLY, DIVIDE, MOD }
                     while (true) {
                         System.out.print("[사칙연산 기호를 입력하세요]: ");
                         scInput = sc.nextLine();
-                        switch (scInput) {
-                            case "+" -> aCalc.setOperator(new AddOperator());
-                            case "-" -> aCalc.setOperator(new SubtractOperator());
-                            case "*" -> aCalc.setOperator(new MultiplyOperator());
-                            case "/" -> aCalc.setOperator(new DivideOperator());
-                            case "%" -> aCalc.setOperator(new ModOperator());
-                            default -> { System.out.println("[에러]: 잘못된 연산기호입니다."); continue; }
+                        try {
+                            aCalc.setOperator(OperatorType.fromSymbol(scInput));
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("[에러]: " + e.getMessage());
                         }
-                        break;
                     }
 
                     // 계산

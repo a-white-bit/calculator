@@ -13,7 +13,7 @@ abstract class Calculator {
 
     // 마지막 결과값 구하기
     public double getLastResult() throws IndexOutOfBoundsException {
-        if (resultList.isEmpty()) throw new IndexOutOfBoundsException("빈 리스트입니다.");
+        if (resultList.isEmpty()) throw new IndexOutOfBoundsException("(빈 리스트)");
         else return resultList.get(resultList.size() - 1);
     }
 
@@ -31,7 +31,7 @@ abstract class Calculator {
     // 리스트 전부 출력
     public void inquiryResults() {
         if (resultList.isEmpty())
-            System.out.print("[연산 결과]: (빈 리스트)");
+            System.out.print("(빈 리스트)");
         else
             resultList.forEach(result -> System.out.print(result + " "));
 
@@ -40,7 +40,7 @@ abstract class Calculator {
 
     // 리스트 가장 오래된 요소 삭제
     public void removeFirstResult() throws Exception {
-        if (resultList.isEmpty()) throw new Exception("빈 리스트입니다.");
+        if (resultList.isEmpty()) throw new Exception("(빈 리스트)");
         else resultList.remove(0);
     }
 
