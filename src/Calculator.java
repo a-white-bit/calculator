@@ -9,6 +9,8 @@ abstract class Calculator {
         resultList = new ArrayList<>();
     }
 
+    abstract void calculate();
+
     // 마지막 결과값 구하기
     public double getLastResult() throws IndexOutOfBoundsException {
         if (resultList.isEmpty()) throw new IndexOutOfBoundsException("빈 리스트입니다.");
