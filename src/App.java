@@ -4,7 +4,7 @@ public class App {
 
     public static void main(String[] args) {
         // 사칙연산, 원의 넓이 각각 인스턴스 생성
-        // aCalc와 cCalc를 합칠 수 없을까?
+        // (하고싶은 것 1. aCalc와 cCalc를 합칠 수 없을까? -> 유연하게 만들고 싶음.)
         ArithmeticCalculator aCalc = new ArithmeticCalculator();
         CircleCalculator cCalc = new CircleCalculator();
 
@@ -20,6 +20,8 @@ public class App {
                 scInput = sc.nextLine();
             } while (!scInput.equals("1") && !scInput.equals("2"));
 
+
+            // (하고싶은 것 2. 아래 반복되는 부분이 많으므로 메서드화 해서 재사용 해보기)
             switch (scInput) {
                 case "1":  // 사칙연산 실행부
 
@@ -87,6 +89,13 @@ public class App {
                         if (sc.nextLine().equals("inquiry")) {
                             System.out.print("[연산 리스트]: ");
                             aCalc.inquiryResults();
+                        }
+
+                        System.out.print("[스트림 출력 테스트하시겠습니까?] (stream 입력) ");
+                        if (sc.nextLine().equals("stream")) {
+                            System.out.print("[기준값] (기준보다 큰 값 출력): ");
+                            scInput = sc.nextLine();
+                            aCalc.inquiryResultsByStream(Double.parseDouble(scInput));
                         }
 
                     } catch (Exception e) {

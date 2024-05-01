@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 abstract class Calculator {
     // 리스트 캡슐화 (private)
@@ -35,6 +37,14 @@ abstract class Calculator {
         else
             resultList.forEach(result -> System.out.print(result + " "));
 
+        System.out.println();
+    }
+
+    public void inquiryResultsByStream(double input) {
+        // 필터링 후 요소가 없으면 "기준값보다 큰 요소가 없음" 출력
+        List<Double> filtered = resultList.stream().filter(result -> result > input).toList();
+        if (filtered.isEmpty()) System.out.println("기준값보다 큰 요소가 없음");
+        else filtered.forEach(result -> System.out.print(result + " "));
         System.out.println();
     }
 
