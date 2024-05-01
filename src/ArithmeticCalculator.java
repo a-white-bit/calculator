@@ -6,14 +6,17 @@ public class ArithmeticCalculator extends Calculator {
     private double secondNumber;
 
 
-    // Enum 클래스를 활용한 다형성
+    // Enum 클래스 + 추상 클래스를 활용한 다형성
     // 매개변수: enum class {ADD, SUBTRACT, MULTIPLY, DIVIDE, MOD}
     public void setOperator (OperatorType type) {
         operatorType = type;
-
-        // 추상 클래스를 이용한 다형성 (변경 전)
-        // 매개변수: AbstractOperator 추상클래스 <-> 자식클래스 {AddOperator, ..} 간 자동형변환을 활용
-        //this.operator = operator;
+        switch (operatorType) {
+            case ADD -> operator = new AddOperator();
+            case SUBTRACT -> operator = new SubtractOperator();
+            case MULTIPLY -> operator = new MultiplyOperator();
+            case DIVIDE -> operator = new DivideOperator();
+            case MOD -> operator = new ModOperator();
+        }
     }
 
     public void setFirstNumber (double firstNumber) {
@@ -37,12 +40,8 @@ public class ArithmeticCalculator extends Calculator {
     public void calculate() {
         double result = 0;
         try {
-            // Enum 클래스를 이용한 다형성
-            result = operatorType.operate(firstNumber, secondNumber);
-
-            // 추상 클래스를 이용한 다형성 (변경 전)
-            //result = operator.operate(firstNumber, secondNumber);
-
+            // Enum과 추상 클래스를 이용한 다형성
+            result = operator.operate(firstNumber, secondNumber);
             addResult(result);
         } catch (ArithmeticException e) {
             throw new ArithmeticException(e.getMessage());
