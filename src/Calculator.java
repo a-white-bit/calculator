@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 abstract class Calculator {
     // 리스트 캡슐화 (private)
@@ -36,7 +35,6 @@ abstract class Calculator {
             System.out.print("(빈 리스트)");
         else
             resultList.forEach(result -> System.out.print(result + " "));
-
         System.out.println();
     }
 
@@ -49,13 +47,13 @@ abstract class Calculator {
     }
 
     // 리스트 가장 오래된 요소 삭제
-    public void removeFirstResult() throws Exception {
-        if (resultList.isEmpty()) throw new Exception("(빈 리스트)");
+    public void removeFirstResult() throws IndexOutOfBoundsException {
+        if (resultList.isEmpty()) throw new IndexOutOfBoundsException("(빈 리스트)");
         else resultList.remove(0);
     }
 
     // 결과값을 리스트에 요소 추가
-    void addResult(double result) {
+    public void addResult(double result) {
         resultList.add(result);
     }
 
