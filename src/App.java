@@ -8,9 +8,6 @@ public class App {
     static final byte INPUT_TYPE_ARITHMETIC = 11;
     static final byte INPUT_TYPE_CIRCLE = 12;
 
-    /* 유형 선택
-    ** 1. 사칙연산  2. 원의 넓이
-     */
     static byte calculateTypeRequest() {
         while (true) {
             System.out.print("[계산 방식을 선택하세요] (1:사칙연산, 2:원의 넓이): ");
@@ -53,10 +50,6 @@ public class App {
             }
         }
     }
-    /*
-    ** 연산기호(+ - * /) 입력받는 코드
-    ** OperatorType: enum { ADD, SUBTRACT, MULTIPLY, DIVIDE, MOD }
-     */
     static void inputOperatorRequest(ArithmeticCalculator calculator) {
         while (true) {
             System.out.print("[사칙연산 기호를 입력하세요]: ");
@@ -68,7 +61,6 @@ public class App {
             }
         }
     }
-
     static boolean calculateByType(Calculator calculator) {
         try {
             calculator.calculate();
@@ -78,19 +70,12 @@ public class App {
             return false;
         }
     }
-
     static void printResult(Calculator calculator) {
         System.out.println("[연산 결과]: " + Math.round(calculator.getLastResult() * 10000) / 10000.0);
     }
-
     static void printCircleResult(CircleCalculator calculator) {
         System.out.println("[원의 넓이]: " + Math.round(calculator.getLastResult() * 10000) / 10000.0 + " (r = " + calculator.getRadius() + ")");
     }
-
-    /*
-    ** 연산 리스트 삭제 질문
-    ** 리스트가 비어있지 않을 경우에 삭제 진행
-     */
     static void removeFirstResultRequest(Calculator calculator) {
         System.out.print("[가장 먼저 저장된 연산 결과를 삭제하시겠습니까?] (remove 입력 시 삭제) ");
         if ("remove".equals(sc.nextLine())) {
@@ -102,10 +87,6 @@ public class App {
             }
         }
     }
-
-    /*
-    ** 조회 여부 질문
-     */
     static void printResultsRequest(Calculator calculator) {
         System.out.print("[저장된 연산결과를 조회하시겠습니까?] (inquiry 입력 시 조회) ");
         if ("inquiry".equals(sc.nextLine())) {
@@ -113,11 +94,6 @@ public class App {
             calculator.inquiryResults();
         }
     }
-
-    /*
-    ** 기준값 입력
-    ** 연산결과 리스트에서 기준값과 비교하여 큰 값을 조회
-     */
     static void resultsByStreamRequest(Calculator calculator) {
         System.out.print("[스트림 출력 테스트하시겠습니까?] (stream 입력) ");
         if ("stream".equals(sc.nextLine())) {
@@ -129,11 +105,6 @@ public class App {
             }
         }
     }
-
-    /*
-    ** 종료 여부 질문
-    ** '네' 또는 '아니요'가 아닐 시 다시 질문 ( return false )
-     */
     static void terminateRequest() {
         while (true) {
             System.out.print("[다시 계산하시겠습니까?] (y/n) ");
