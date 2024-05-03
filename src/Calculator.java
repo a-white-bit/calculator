@@ -14,8 +14,12 @@ abstract class Calculator {
 
     // 마지막 결과값 구하기
     public double getLastResult() throws IndexOutOfBoundsException {
-        if (resultList.isEmpty()) throw new IndexOutOfBoundsException("(빈 리스트)");
-        else return resultList.get(resultList.size() - 1);
+        if (resultList.isEmpty()) {
+            throw new IndexOutOfBoundsException("(빈 리스트)");
+        }
+        else {
+            return resultList.get(resultList.size() - 1);
+        }
     }
 
     // 인덱스 접근
@@ -41,8 +45,13 @@ abstract class Calculator {
     public void inquiryResultsByStream(double input) {
         // 필터링 후 요소가 없으면 "기준값보다 큰 요소가 없음" 출력
         List<Double> filtered = resultList.stream().filter(result -> result > input).toList();
-        if (filtered.isEmpty()) System.out.println("기준값보다 큰 요소가 없음");
-        else filtered.forEach(result -> System.out.print(result + " "));
+        if (filtered.isEmpty()) {
+            System.out.println("기준값보다 큰 요소가 없음");
+        }
+        else {
+            System.out.print("[연산 리스트]: ");
+            filtered.forEach(result -> System.out.print(result + " "));
+        }
         System.out.println();
     }
 
