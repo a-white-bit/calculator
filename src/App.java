@@ -123,7 +123,7 @@ public class App {
 
         // 사칙연산, 원의 넓이
         // 인스턴스 생성
-        ArithmeticCalculator arithmeticCalculator = new ArithmeticCalculator();
+        ArithmeticCalculator<Double> arithmeticCalculator = new ArithmeticCalculator<>(Double.class);
         CircleCalculator circleCalculator = new CircleCalculator();
         Calculator parentCalculator = null;
 

@@ -1,3 +1,3 @@
-public abstract class AbstractOperator {
-    abstract double operate(double a, double b);
+public abstract class AbstractOperator<T extends Number> {
+    abstract T operate(T a, T b);
 }

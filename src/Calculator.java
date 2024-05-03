@@ -62,7 +62,7 @@ abstract class Calculator {
     }
 
     // 결과값을 리스트에 요소 추가
-    public void addResult(double result) {
+    public void addResult(Double result) {
         resultList.add(result);
     }
 
